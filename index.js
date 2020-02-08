@@ -41,9 +41,6 @@ let persons = [
 
 const generateId = () => 1 + Math.floor(Math.random()*100000)
 
-app.get("/", (request, response) => {
-  response.send("Hi there")
-})
 
 app.get("/info", (request, response) => {
   response.send(`Phonebook has info for ${persons.length} people
