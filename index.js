@@ -84,6 +84,7 @@ app.post("/api/persons", (request, response) => {
     response.status(400).json({
       error: "Name must be unique"
     })
+    return
   }
 
   const person = {
