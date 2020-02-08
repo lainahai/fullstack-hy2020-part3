@@ -99,7 +99,7 @@ app.post("/api/persons", (request, response) => {
 })
 
 
-const PORT = process.env.port ? process.env.port : 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`puhelinluettelo-backend running in port ${PORT}`)
 })
