@@ -1,7 +1,19 @@
 
 const express = require('express')
+const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
 
+
+morgan.token('post-body', (req, res) => { 
+  if(req.method === "POST"){
+    return JSON.stringify(req.body)
+  }
+  return ""
+})
+
+app.use(cors())
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms - :post-body'))
 app.use(express.json()) 
 
 let persons = [
@@ -62,7 +74,19 @@ app.delete("/api/persons/:id" ,(request, response) => {
 
 app.post("/api/persons", (request, response) => {
   const body = request.body
-  console.log(body)
+  
+  if(!body.name || !body.number) {
+    response.status(400).json({
+      error: "Name and number cannot be empty"
+    })
+    return
+  }
+
+  if(persons.find(person => person.name === body.name)){
+    response.status(400).json({
+      error: "Name must be unique"
+    })
+  }
 
   const person = {
     name: body.name,
@@ -70,15 +94,12 @@ app.post("/api/persons", (request, response) => {
     id: generateId(),
     timestamp: new Date()
   }
-  console.log(person)
-
   persons = persons.concat(person)
-
-  response.status(200).end()
-
+  response.status(200).json(person)
 })
 
-const PORT = 3001
+
+const PORT = process.env.port ? process.env.port : 3001
 app.listen(PORT, () => {
   console.log(`puhelinluettelo-backend running in port ${PORT}`)
 })
