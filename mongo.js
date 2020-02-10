@@ -7,7 +7,7 @@ if(process.argv.length < 3){
 
 const password = process.argv[2]
 const databaseUrl = 
-  `mongodb+srv://puhelinuser:${password}@fullstackpuhelin-kukzh.mongodb.net/test?retryWrites=true&w=majority`
+  `mongodb+srv://puhelinuser:${password}@fullstackpuhelin-kukzh.mongodb.net/puhelinluettelo-app?retryWrites=true&w=majority`
 
 mongoose.connect(databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 
