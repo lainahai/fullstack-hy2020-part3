@@ -32,13 +32,13 @@ const printAll = () => {
 
 const addNew = (name, number) => {
   const contact = new Contact({ name, number })
-  contact.save().then(result => {
+  contact.save().then( () => {
     console.log(`Added ${name} ${number} to contacts`)
     mongoose.connection.close()
   })
 }
 
-if (process.argv.length == 3) {
+if (process.argv.length === 3) {
   printAll()
 } else if (process.argv.length < 5) {
   console.log('You must give both a name and a number')
